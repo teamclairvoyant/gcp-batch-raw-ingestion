@@ -1,5 +1,4 @@
 # gcp-batch-raw-ingestion
-
 Packages required:
 python -m  pip install apache-beam[gcp]==2.46.0
 python -m  pip install google-cloud-storage==2.8.0

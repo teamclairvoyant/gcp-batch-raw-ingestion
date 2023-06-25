@@ -25,8 +25,8 @@ python -m gcs_to_bq --runner DataflowRunner  --project playground-375318  --stag
 
 
 gcs_to_bq_config.json
-label= <source_name>_<bq_table_name>_<source_table_name>
-eg. source is MongoDB, bq_table_name is mongodb_users and source_table_name is users then label= mongodb_mongodb_users_users
+label= <sequence_no>_<bq_table_name>
+eg. bq_table_name is mongodb_users then label= 1_mongodb_users
 Every label in this file should have entry in transformation_rules.json
 
 

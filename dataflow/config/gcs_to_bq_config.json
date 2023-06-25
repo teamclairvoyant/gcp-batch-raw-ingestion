@@ -8,7 +8,7 @@
       "landing_folder": "mongodb/landing/sample_mflix",
       "archive_bucket_name": "bronze-poc-group-archive",
       "archive_folder": "mongodb/archive/sample_mflix",
-      "label": "mongodb_mongodb_users_users",
+      "label": "1_mongodb_users",
       "file_pattern": ".*/users-\\d{8}-.*.json",
       "bq_dataset": "test",
       "bq_table_name": "mongodb_users",
@@ -20,7 +20,7 @@
       "archive_bucket_name": "bronze-poc-group-archive",
       "archive_folder": "mongodb/archive/sample_mflix",
       "file_pattern": ".*/users-\\d{8}-.*.csv",
-      "label": "mongodb_mongo_users1_users",
+      "label": "2_mongo_users1",
       "bq_dataset": "test",
       "bq_table_name": "mongo_users1",
       "bq_table_schema": "name:STRING,email:STRING,password:STRING,preference:STRING"

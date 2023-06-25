@@ -1,5 +1,6 @@
 Packages required:
-python -m  pip install apache-beam[gcp]==2.46.0
+
+python -m  pip install apache-beam[gcp]==2.46.0 
 python -m  pip install google-cloud-storage==2.8.0
 python -m pip install pymongo==3.9.0
 python -m pip install pymongo[srv]
@@ -7,6 +8,7 @@ python -m pip install pandas==1.5.3
 python -m pip install mysql-connector-python==8.0.33
 python -m pip install pycryptodome==3.17
 python -m pip install google-cloud-secret-manager==2.16.1
+
 
 setup:
 python setup.py install

@@ -1,0 +1,14 @@
+{
+  "project_ing": "playground-375318",
+  "tables": [
+    {
+      "bucket_name": "bronze-poc-group",
+      "landing_folder": "mongodb/landing/sample_mflix",
+      "archive_bucket_name": "bronze-poc-group-archive",
+      "archive_folder": "mongodb/archive/sample_mflix",
+      "file_pattern": ".*/users-\\d{8}-.*.json",
+      "bq_dataset": "test",
+      "bq_table_name": "mongodb_users"
+    }
+  ]
+}

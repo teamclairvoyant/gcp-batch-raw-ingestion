@@ -1,28 +1,37 @@
 from pyspark.sql import SparkSession
 import logging
-# Create a SparkSession
-spark = SparkSession.builder \
-    .appName("Read JSON from GCS and Write to BigQuery") \
-    .getOrCreate()
+import argparse
+from utils.file_util import read_json_file
 
-# Set GCS JSON file path
-gcs_bucket = "bronze-poc-group"
-json_file_path = "mongodb/landing/sample_mflix/users-20230515-00000-of-00001.json"
-gcs_file_path = f"gs://{gcs_bucket}/{json_file_path}"
+def run(argv=None, save_main_session=True):
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--config_file', required=True)
+    known_args, pipeline_args = parser.parse_known_args(argv)
+    config = read_json_file(known_args.config_file)
+    project_ing = config["project_ing"]
 
-logging.info("File:{}".format(gcs_file_path))
+    spark = SparkSession.builder \
+        .appName("gcs-batch-raw-ingestion") \
+        .getOrCreate()
 
-# Set BigQuery table details
-project_id = "playground-375318"
-dataset_name = "test"
-table_name = "mongodb_users"
+    for table_dict in config.get("tables", []):
+        bucket_name = table_dict["bucket_name"]
+        gcs_folder = table_dict["landing_folder"]
+        file_pattern = table_dict["file_pattern"]
+        json_path = "gs://{}/{}/{}".format(bucket_name, gcs_folder, file_pattern)
+        logging.info("File:{}".format(json_path))
 
-# Read JSON data from GCS
-json_data = spark.read.json(gcs_file_path)
-logging.info("Data:{}".format(json_data))
-json_data.show()
+        if file_pattern.lower().__contains__("json"):
+            data = spark.read.json(json_path)
+            logging.info("Data Count:{}".format(data.count()))
+            data.show()
 
+        nq_project_id = project_ing
+        bq_dataset_name = table_dict["bq_dataset"]
+        bq_table_name = table_dict["bq_table_name"]
 
+    spark.stop()
 
-# Stop the SparkSession
-spark.stop()
+if __name__ == '__main__':
+    logging.getLogger().setLevel(logging.INFO)
+    run()

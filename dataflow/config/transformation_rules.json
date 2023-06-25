@@ -1,0 +1,42 @@
+{
+  "MONGODB_MONGODB_USERS_USERS": {
+    "transforms": [
+      {
+        "function": "add_date_now",
+        "arguments": [
+          {
+            "new_field": "etl_date"
+          }
+        ]
+      },
+      {
+        "function": "add_timestamp_now",
+        "arguments": [
+          {
+            "new_field": "current_timestamp"
+          }
+        ]
+      }
+    ]
+  },
+  "MONGODB_MONGO_USERS1_USERS": {
+    "transforms": [
+      {
+        "function": "add_date_now",
+        "arguments": [
+          {
+            "new_field": "etl_date"
+          }
+        ]
+      },
+      {
+        "function": "add_timestamp_now",
+        "arguments": [
+          {
+            "new_field": "current_timestamp"
+          }
+        ]
+      }
+    ]
+  }
+}

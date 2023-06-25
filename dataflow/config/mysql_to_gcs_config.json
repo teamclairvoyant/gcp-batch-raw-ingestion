@@ -1,0 +1,22 @@
+{
+  "source" : "mysql",
+  "user_name" : "sql12616510",
+  "output_path" : "gs://bronze-poc-group/mysql/landing/",
+  "secret_key" : "cv-mysql-pass-dev",
+  "project" : "700530568956",
+  "uri" : "sql12.freemysqlhosting.net",
+  "tables": [
+    {
+      "databse": "sql12616510",
+      "table": "users",
+      "header": "name,email,password",
+      "file_type": "json"
+    },
+    {
+      "databse": "sql12616510",
+      "table": "users",
+      "header": "name,email,password",
+      "file_type": "csv"
+    }
+  ]
+}

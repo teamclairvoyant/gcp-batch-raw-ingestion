@@ -1,0 +1,29 @@
+{
+  "custom_gcs_temp_location": "gs://bronze-poc-group/mongodb/temp",
+  "project_ing": "playground-375318",
+  "transformation_rules_uri": "config/transformation_rules.json",
+  "tables": [
+    {
+      "bucket_name": "bronze-poc-group",
+      "landing_folder": "mongodb/landing/sample_mflix",
+      "archive_bucket_name": "bronze-poc-group-archive",
+      "archive_folder": "mongodb/archive/sample_mflix",
+      "label": "mongodb_mongodb_users_users",
+      "file_pattern": ".*/users-\\d{8}-.*.json",
+      "bq_dataset": "test",
+      "bq_table_name": "mongodb_users",
+      "bq_table_schema": "name:STRING,email:STRING,password:STRING"
+    },
+    {
+      "bucket_name": "bronze-poc-group",
+      "landing_folder": "mongodb/landing/sample_mflix",
+      "archive_bucket_name": "bronze-poc-group-archive",
+      "archive_folder": "mongodb/archive/sample_mflix",
+      "file_pattern": ".*/users-\\d{8}-.*.csv",
+      "label": "mongodb_mongo_users1_users",
+      "bq_dataset": "test",
+      "bq_table_name": "mongo_users1",
+      "bq_table_schema": "name:STRING,email:STRING,password:STRING,preference:STRING"
+    }
+  ]
+}

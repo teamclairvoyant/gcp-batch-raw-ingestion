@@ -1,0 +1,22 @@
+{
+  "source" : "mongodb",
+  "user_name" : "ihub",
+  "output_path" : "gs://bronze-poc-group/mongodb/landing/",
+  "secret_key" : "cv-mongodb-pass-dev",
+  "project" : "700530568956",
+  "uri" : "mongodb://<mongo_user_name>:<mongo_user_password>@ihubcluster-shard-00-00.rxkoa.mongodb.net:27017,ihubcluster-shard-00-01.rxkoa.mongodb.net:27017,ihubcluster-shard-00-02.rxkoa.mongodb.net:27017/?ssl=true&replicaSet=atlas-12tana-shard-0&authSource=admin&retryWrites=true&w=majority",
+  "tables": [
+    {
+      "databse": "sample_mflix",
+      "table": "users",
+      "header": "name,email,password",
+      "file_type": "json"
+    },
+    {
+      "databse": "sample_mflix",
+      "table": "users",
+      "header": "name,email,password,preference",
+      "file_type": "csv"
+    }
+  ]
+}

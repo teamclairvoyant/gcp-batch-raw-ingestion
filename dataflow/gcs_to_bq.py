@@ -24,6 +24,8 @@ class ProcessFileFn(beam.DoFn):
             for ele in list_l:
                 if ele.strip():
                     row = ast.literal_eval(ele)
+
+                    # Control columns
                     # tbl_row = {}
                     # schema_l = self.table_schema.split(",")
                     # for schema_ele in schema_l:

@@ -9,7 +9,8 @@ def get_project_root() -> Path:
 
 def read_json_file(path: str) -> dict:
     root = get_project_root()
-    path_to_file = '{}\{}'.format(root, path)
+    #path_to_file = '{}\{}'.format(root, path)
+    path_to_file = '{}/{}'.format(root, path)
     logging.info(f'Reading file >> {path_to_file}')
     with open(path_to_file) as json_file:
         data = json.load(json_file)

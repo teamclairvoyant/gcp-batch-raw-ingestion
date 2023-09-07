@@ -97,6 +97,7 @@ def run(argv=None, save_main_session=True):
                     | f"ReadFileContentSideInput {label}" >> beam.ParDo(ReadFileContentFn(project=project_ing, bucket_name=bucket_name))
                     | f"ProcessFile {label}" >> beam.ParDo(ProcessFileFn(table_schema=table_schema))
                     | f"ApplyTransformationRules {label}" >> ApplyTransformConformRules(transformation_rules=transformation_rules, entity_name=entity_name)
+                    # | f"PrintElement{label}" >> beam.ParDo(PrintJson())
             )
 
             write_date = (

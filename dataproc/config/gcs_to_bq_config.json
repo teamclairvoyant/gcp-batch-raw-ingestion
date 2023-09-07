@@ -2,13 +2,20 @@
   "project_ing": "playground-375318",
   "tables": [
     {
-      "bucket_name": "bronze-poc-group",
-      "landing_folder": "mongodb/landing/sample_mflix",
-      "archive_bucket_name": "bronze-poc-group-archive",
-      "archive_folder": "mongodb/archive/sample_mflix",
-      "file_pattern": ".*/users-\\d{8}-.*.json",
-      "bq_dataset": "test",
-      "bq_table_name": "mongodb_users"
+      "name": "transactions_per_user",
+      "src_bq_dataset": "transactional_data",
+      "trg_bq_dataset": "reporting_data",
+      "trg_bq_table_name": "transactions_per_user",
+      "transactions_tbl": "transactions",
+      "customers_tbl": "customers"
+    },
+    {
+      "name": "transaction_per_user_per_account",
+      "src_bq_dataset": "transactional_data",
+      "trg_bq_dataset": "reporting_data",
+      "trg_bq_table_name": "transaction_per_user_per_account",
+      "transactions_tbl": "transactions",
+      "customers_tbl": "customers"
     }
   ]
 }

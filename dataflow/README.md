@@ -1,12 +1,14 @@
+gcp-batch-raw-ingestion
+
 Packages required:
 
 python -m  pip install apache-beam[gcp]==2.46.0 
 python -m  pip install google-cloud-storage==2.8.0
-python -m pip install pymongo==3.9.0
-python -m pip install pymongo[srv]
-python -m pip install pandas==1.5.3
-python -m pip install mysql-connector-python==8.0.33
-python -m pip install pycryptodome==3.17
+python3 -m pip install pymongo==3.9.0
+python3 -m pip install pymongo[srv]
+python3 -m pip install pandas==1.5.3
+python3 -m pip install mysql-connector-python==8.0.33
+python3 -m pip install pycryptodome==3.17
 python -m pip install google-cloud-secret-manager==2.16.1
 
 
@@ -37,3 +39,9 @@ Keys in this config file are equal to label.upper() from gcs_to_bq_config.json
 
 Execute code in gcloud shell:
 gcloud dataflow jobs run mysql_to_gcs --gcs-location gs://bronze-poc-group/gcp-batch-raw-ingestion/dataflow/templates/mysql_to_gcs --region us-central1 --num-workers 2 --staging-location gs://bronze-poc-group/gcp-batch-raw-ingestion/dataflow/temp/ --additional-experiments use_portable_job_submission
+
+
+
+Run dataproc job
+# gs://bronze-poc-group/gcp-batch-raw-ingestion/dataproc/gcs_bq_dataproc.py
+# gs://bronze-poc-group/gcp-batch-raw-ingestion/dataproc/jars/spark-3.1-bigquery-0.31.1.jar

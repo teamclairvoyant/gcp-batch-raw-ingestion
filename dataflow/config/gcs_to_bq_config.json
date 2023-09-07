@@ -3,27 +3,39 @@
   "project_ing": "playground-375318",
   "transformation_rules_uri": "config/transformation_rules.json",
   "tables": [
+
     {
       "bucket_name": "bronze-poc-group",
-      "landing_folder": "mongodb/landing/sample_mflix",
+      "landing_folder": "mongodb/landing/sample_analytics",
       "archive_bucket_name": "bronze-poc-group-archive",
-      "archive_folder": "mongodb/archive/sample_mflix",
-      "label": "1_mongodb_users",
-      "file_pattern": ".*/users-\\d{8}-.*.json",
-      "bq_dataset": "test",
-      "bq_table_name": "mongodb_users",
-      "bq_table_schema": "name:STRING,email:STRING,password:STRING"
+      "archive_folder": "mongodb/archive/sample_analytics",
+      "file_pattern": ".*/accounts-\\d{8}-.*.json",
+      "label": "1_accounts",
+      "bq_dataset": "transactional_data",
+      "bq_table_name": "accounts",
+      "bq_table_schema": ""
     },
     {
       "bucket_name": "bronze-poc-group",
-      "landing_folder": "mongodb/landing/sample_mflix",
+      "landing_folder": "mongodb/landing/sample_analytics",
       "archive_bucket_name": "bronze-poc-group-archive",
-      "archive_folder": "mongodb/archive/sample_mflix",
-      "file_pattern": ".*/users-\\d{8}-.*.csv",
-      "label": "2_mongo_users1",
-      "bq_dataset": "test",
-      "bq_table_name": "mongo_users1",
-      "bq_table_schema": "name:STRING,email:STRING,password:STRING,preference:STRING"
+      "archive_folder": "mongodb/archive/sample_analytics",
+      "file_pattern": ".*/customers-\\d{8}-.*.json",
+      "label": "2_customers",
+      "bq_dataset": "transactional_data",
+      "bq_table_name": "customers",
+      "bq_table_schema": ""
+    },
+    {
+      "bucket_name": "bronze-poc-group",
+      "landing_folder": "mongodb/landing/sample_analytics",
+      "archive_bucket_name": "bronze-poc-group-archive",
+      "archive_folder": "mongodb/archive/sample_analytics",
+      "file_pattern": ".*/transactions-\\d{8}-.*.json",
+      "label": "3_transactions",
+      "bq_dataset": "transactional_data",
+      "bq_table_name": "transactions",
+      "bq_table_schema": "transactions"
     }
   ]
 }

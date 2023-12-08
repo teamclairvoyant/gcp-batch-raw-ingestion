@@ -10,13 +10,41 @@
       "databse": "sample_mflix",
       "table": "users",
       "header": "name,email,password",
-      "file_type": "json"
+      "file_type": "json",
+      "explode_cols": "",
+      "explode_cols_type": ""
     },
     {
       "databse": "sample_mflix",
       "table": "users",
       "header": "name,email,password,preference",
-      "file_type": "csv"
+      "file_type": "csv",
+      "explode_cols": "",
+      "explode_cols_type": ""
+    },
+    {
+      "databse": "sample_analytics",
+      "table": "accounts",
+      "header": "account_id,limit,products",
+      "file_type": "json",
+      "explode_cols": "",
+      "explode_cols_type": ""
+    },
+    {
+      "databse": "sample_analytics",
+      "table": "customers",
+      "header": "username,name,address,birthdate,email,accounts",
+      "file_type": "json",
+      "explode_cols": "accounts",
+      "explode_cols_type": "list"
+    },
+    {
+      "databse": "sample_analytics",
+      "table": "transactions",
+      "header": "account_id,transaction_count,bucket_start_date,bucket_end_date,transactions",
+      "file_type": "json",
+      "explode_cols": "transactions",
+      "explode_cols_type": "json"
     }
   ]
 }

@@ -18,26 +18,27 @@ def get_project_root() -> Path:
 def read_json_file(path: str) -> dict:
     root = get_project_root()
     path_to_file = '{}\{}'.format(root, path)
+    #path_to_file = '{}'.format( path)
     logging.info(f'Reading file >> {path_to_file}')
     with open(path_to_file) as json_file:
         data = json.load(json_file)
     return data
 
 class ReadDataFromSourceDoFn(beam.DoFn):
-    def __init__(self, config, db_name, table_name, header, file_type):
+    def __init__(self, config, db_name, table_name, header, file_type, explode_cols, explode_cols_type):
         self.config = config
         self.db_name = db_name
         self.table_name = table_name
         self.header = header
         self.file_type = file_type
+        self.explode_cols = explode_cols
+        self.explode_cols_type = explode_cols_type
 
     def process(self, element):
         source = self.config['source']
         decrypt_path = self.config['secret_key']
         project = self.config['project']
-        print(project, " ", decrypt_path)
         password = get_secret(project, decrypt_path)
-        print("Password:",password)
         logging.info(f"Successfully fetched password from secret manager")
 
         if source.upper() == "MONGODB":
@@ -62,7 +63,19 @@ class ReadDataFromSourceDoFn(beam.DoFn):
                                 json_result[key] = str(data.get(key))
                             else:
                                 json_result[key] = ""
-                        yield json_result
+
+                        if self.explode_cols != "":
+                            element_list = data.get(self.explode_cols)
+                            tmp_json_result = json_result.copy()
+                            for indx_col in element_list:
+                                tmp_json_result[self.explode_cols] = str(indx_col)
+                                if self.explode_cols_type == "json":
+                                    for key, value in indx_col.items():
+                                        tmp_json_result[key]= str(value)
+                                    tmp_json_result.pop(self.explode_cols)
+                                yield  tmp_json_result
+                        else:
+                            yield json_result
 
                 # csv
                 if self.file_type.upper() == "CSV":
@@ -76,6 +89,7 @@ class ReadDataFromSourceDoFn(beam.DoFn):
                         yield ",".join(ele for ele in csv_result)
 
             except Exception as e:
+                logging.info("e:", e.with_traceback())
                 yield e
 
         elif source.upper() == "MYSQL":
@@ -122,6 +136,8 @@ def run(argv=None, save_main_session=True):
             table_name = table_dict["table"]
             header = table_dict['header']
             file_type = table_dict['file_type']
+            explode_cols = table_dict['explode_cols']
+            explode_cols_type = table_dict['explode_cols_type']
             if file_type.upper() == "CSV":
                 file_header = header
             else:
@@ -135,12 +151,14 @@ def run(argv=None, save_main_session=True):
                                             db_name=db_name,
                                             table_name=table_name,
                                             header=header,
-                                            file_type=file_type))
+                                            file_type=file_type,
+                                            explode_cols=explode_cols,
+                                            explode_cols_type=explode_cols_type))
                     | f"WriteToGcs {db_name}.{table_name} {file_type}" >> WriteToText(
                                             file_path_prefix=output_path_file,
                                             file_name_suffix="." + file_type,
                                             header=file_header,
-                                            max_records_per_shard=1000)
+                                            max_records_per_shard=10000)
             )
 
 if __name__ == '__main__':

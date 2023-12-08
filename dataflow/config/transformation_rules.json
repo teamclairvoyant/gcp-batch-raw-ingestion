@@ -1,5 +1,33 @@
 {
-  "MONGODB_MONGODB_USERS_USERS": {
+  "1_ACCOUNTS": {
+    "transforms": [
+      {
+        "function": "add_date_now",
+        "arguments": [
+          {
+            "new_field": "etl_date"
+          }
+        ]
+      },
+      {
+        "function": "add_timestamp_now",
+        "arguments": [
+          {
+            "new_field": "current_timestamp"
+          }
+        ]
+      },
+      {
+        "function": "stringlist_to_string",
+        "arguments": [
+          {
+            "column_name": "products"
+          }
+        ]
+      }
+    ]
+  },
+  "2_CUSTOMERS": {
     "transforms": [
       {
         "function": "add_date_now",
@@ -19,7 +47,7 @@
       }
     ]
   },
-  "MONGODB_MONGO_USERS1_USERS": {
+  "3_TRANSACTIONS": {
     "transforms": [
       {
         "function": "add_date_now",

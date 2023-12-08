@@ -1,7 +1,7 @@
 {
   "custom_gcs_temp_location": "gs://bronze-poc-group/mongodb/temp",
   "project_ing": "playground-375318",
-  "transformation_rules_uri": "config/transformation_rules.json",
+  "transformation_rules_uri": "config\\transformation_rules.json",
   "tables": [
 
     {

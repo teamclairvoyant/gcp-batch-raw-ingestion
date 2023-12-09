@@ -5,7 +5,7 @@ pipeline {
     stage('version') {
       steps {
         slackSend color: 'good', message: "Hi <@$userId> your build has started and url is ${env.BUILD_URL}"
-        sh 'python3 --version'
+        sh 'rm-rf /bitnami/jenkins/home/dataflow-etl/dataflow/'
       }
     }
     stage('Running requirements.txt') {

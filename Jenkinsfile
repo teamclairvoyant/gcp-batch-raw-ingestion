@@ -11,7 +11,7 @@ pipeline {
     stage('Running requirements.txt') {
       steps {
       // slackSend color: 'good', message: "Hi <@$userId> Running requirements.txt "
-       sh 'pip3 install -r /bitnami/jenkins/home/workspace/dataflow-python-etl/dataflow/requirements.txt'
+       sh 'pip3 install -r /bitnami/jenkins/home/workspace/dataflow-python-etl/dataflow/requirements.txt --user'
       }
     }
     stage('Running setup.py') {

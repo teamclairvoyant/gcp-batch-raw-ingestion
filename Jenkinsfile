@@ -5,7 +5,7 @@ pipeline {
     stage('version') {
       steps {
         slackSend color: 'good', message: "Hi <@$userId> your build has started and url is ${env.BUILD_URL}"
-        sh 'ls -l /bitnami/jenkins/home/workspace/dataflow-etl/dataflow/'
+        sh 'python3 --version'
       }
     }
     stage('Running requirements.txt') {
@@ -48,6 +48,10 @@ pipeline {
         failure {
             slackSend color: 'danger', message: "Hi <@$userId> your build has failed pleas check ${env.BUILD_URL}"
                 }
+        always {
+              echo 'Deleting previous build'
+              sh 'rm-rf /bitnami/jenkins/home/dataflow-etl/dataflow/'
+            }
         }
 
 }

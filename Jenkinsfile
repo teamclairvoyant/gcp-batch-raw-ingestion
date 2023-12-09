@@ -43,13 +43,15 @@ pipeline {
   }
   post {
         success {
+             echo 'success'
           // slackSend color: 'good', message: "Hi <@$userId> Airflow dag is triggered please check the ui"
         }
         failure {
+              echo 'failure'
          //   slackSend color: 'danger', message: "Hi <@$userId> your build has failed pleas check ${env.BUILD_URL}"
                 }
         always {
-              echo 'Deleting previous build'
+              echo 'always'
          //     sh 'rm  -rf /bitnami/jenkins/home/workspace/dataflow-etl/dataflow/'
             }
         }

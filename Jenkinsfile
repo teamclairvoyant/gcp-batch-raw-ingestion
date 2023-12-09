@@ -52,7 +52,7 @@ pipeline {
                 }
         always {
               echo 'always'
-              sh 'rm  -rf /bitnami/jenkins/home/.local/lib/python3.9/site-packages/Dataflow_Ingestion-1.0-py3.9.egg'
+              //sh 'rm  -rf /bitnami/jenkins/home/.local/lib/python3.9/site-packages/Dataflow_Ingestion-1.0-py3.9.egg'
             }
         }
 

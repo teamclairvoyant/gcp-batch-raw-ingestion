@@ -5,7 +5,7 @@ pipeline {
     stage('version') {
       steps {
         //slackSend color: 'good', message: "Hi <@$userId> your build has started and url is ${env.BUILD_URL}"
-        sh 'ls  -ltrh /bitnami/jenkins/home/workspace/dataflow-python-etl@tmp/'
+        sh 'ls  -ltrh /bitnami/jenkins/home/workspace/'
       }
     }
     stage('Running requirements.txt') {

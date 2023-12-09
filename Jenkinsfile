@@ -5,7 +5,7 @@ pipeline {
     stage('version') {
       steps {
         slackSend color: 'good', message: "Hi <@$userId> your build has started and url is ${env.BUILD_URL}"
-        sh 'rm-rf /bitnami/jenkins/home/dataflow-etl/dataflow/'
+        sh 'rm -rf /bitnami/jenkins/home/dataflow-etl/dataflow/'
       }
     }
     stage('Running requirements.txt') {
@@ -50,7 +50,7 @@ pipeline {
                 }
         always {
               echo 'Deleting previous build'
-              sh 'rm-rf /bitnami/jenkins/home/dataflow-etl/dataflow/'
+              sh 'rm -rf /bitnami/jenkins/home/dataflow-etl/dataflow/'
             }
         }
 

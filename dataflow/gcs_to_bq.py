@@ -110,15 +110,15 @@ def run(argv=None, save_main_session=True):
                                         create_disposition=BigQueryDisposition.CREATE_NEVER)
             )
 
-            archive_files = (
-                    file_list
-                    | f"MoveFilesToArchive {label}" >> beam.ParDo(MoveFilesToArchiveFn(
-                                        project=project_ing,
-                                        bucket_name=bucket_name,
-                                        archive_bucket_name=archive_bucket_name,
-                                        archive_folder=archive_folder),
-                                        data=beam.pvalue.AsList(data))
-            )
+            # archive_files = (
+            #         file_list
+            #         | f"MoveFilesToArchive {label}" >> beam.ParDo(MoveFilesToArchiveFn(
+            #                             project=project_ing,
+            #                             bucket_name=bucket_name,
+            #                             archive_bucket_name=archive_bucket_name,
+            #                             archive_folder=archive_folder),
+            #                             data=beam.pvalue.AsList(data))
+            # )
 
 
 

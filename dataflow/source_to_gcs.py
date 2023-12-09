@@ -17,8 +17,8 @@ def get_project_root() -> Path:
 
 def read_json_file(path: str) -> dict:
     root = get_project_root()
-    #path_to_file = '{}/{}'.format(root, path)
-    path_to_file = '{}'.format( path)
+    path_to_file = '{}\{}'.format(root, path)
+    #path_to_file = '{}'.format( path)
     logging.info(f'Reading file >> {path_to_file}')
     with open(path_to_file) as json_file:
         data = json.load(json_file)
@@ -89,6 +89,7 @@ class ReadDataFromSourceDoFn(beam.DoFn):
                         yield ",".join(ele for ele in csv_result)
 
             except Exception as e:
+                logging.info("e:", e.with_traceback())
                 yield e
 
         elif source.upper() == "MYSQL":

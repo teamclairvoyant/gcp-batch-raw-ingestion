@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name='Dataflow-Ingestion',
-    version='1.0',
+    version='2.0',
     description='GCP POC Dataflow Ingestion',
     install_requires= [
         "apache-beam[gcp]==2.46.0"

@@ -8,6 +8,12 @@ pipeline {
         sh 'ls  -ltrh /bitnami/jenkins/home/workspace/gcp-batch-raw-ingestion-dataflow/dataflow/'
       }
     }
+    stage('Uploading airflow Dags') {
+        steps {
+        slackSend color: 'good', message: "Hi <@$userId> airflow dags are deployed"
+        sh 'gsutil cp /bitnami/jenkins/home/workspace/gcp-batch-raw-ingestion-dataflow/airflow_dags/*.py  gs://us-central1-data-generator--fc43a156-bucket/dags'
+      }
+    }
     stage('Running requirements.txt') {
       steps {
        slackSend color: 'good', message: "Hi <@$userId> Running requirements.txt "

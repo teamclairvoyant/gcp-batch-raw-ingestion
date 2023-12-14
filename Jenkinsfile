@@ -101,7 +101,7 @@ pipeline {
   post {
         success {
              echo 'success'
-             slackSend color: 'good', message: "Hi <@$userId> Airflow dag is triggered please check the ui"
+             slackSend color: 'good', message: "Hi <@$userId> Build is success"
         }
         failure {
               echo 'failure'

@@ -42,6 +42,7 @@ pipeline {
       dir('/bitnami/jenkins/home/workspace/dataflow-etl/dataflow/'){
           slackSend color: 'good', message: "Hi <@$userId> Running setup.py"
           sh 'python3 /bitnami/jenkins/home/workspace/gcp-batch-raw-ingestion-dataflow/dataflow/setup.py install --user'
+		  }
 
       echo 'Building the template and deploying on gcs'
       dir('/bitnami/jenkins/home/workspace/gcp-batch-raw-ingestion-dataflow/dataflow/'){

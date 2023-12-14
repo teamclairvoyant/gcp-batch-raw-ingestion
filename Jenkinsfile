@@ -1,4 +1,5 @@
 def userId = slackUserIdFromEmail("${BUILD_USER_EMAIL}")
+sh 'pwd'
 pipeline {
   agent any
 
@@ -15,6 +16,7 @@ pipeline {
   stages {
     stage('List files from github') {
       steps {
+        sh 'pwd'
         slackSend color: 'good', message: "Hi <@$userId> your build has started and url is ${env.BUILD_URL}"
         sh 'ls  -ltrh /bitnami/jenkins/home/workspace/gcp-batch-raw-ingestion-dataflow/dataflow/'
       }

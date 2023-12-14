@@ -27,10 +27,10 @@ with models.DAG(
     catchup=False
 ) as dag:
 
-    source_to_gcs = DataflowTemplatedJobStartOperator(
-        task_id="source_to_gcp",
+    mongodb_to_gcs = DataflowTemplatedJobStartOperator(
+        task_id="mongodb_to_gcs",
         retries=0,
-        template="gs://bronze-poc-group/gcp-batch-raw-ingestion/dataflow/templates/source_to_gcp",
+        template="gs://bronze-poc-group/gcp-batch-raw-ingestion/dataflow/templates/mongodb_to_gcs",
         location=gce_zone,
         cancel_timeout=60,
     )
@@ -42,4 +42,4 @@ with models.DAG(
         location=gce_zone,
         cancel_timeout=60,
     )
-source_to_gcs >> gcs_to_bq
+mongodb_to_gcs >> gcs_to_bq

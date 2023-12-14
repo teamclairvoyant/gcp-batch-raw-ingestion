@@ -23,7 +23,7 @@ pipeline {
         script {
         if(params.Airflow_Dag_Upload != "NONE"){
         slackSend color: 'good', message: "Hi <@$userId> airflow dags are deployed"
-        sh 'gsutil cp /bitnami/jenkins/home/workspace/gcp-batch-raw-ingestion-dataflow/airflow_dags/${params.Airflow_Dag_Upload}.py  gs://us-central1-data-generator--fc43a156-bucket/dags'
+        sh 'gsutil cp /bitnami/jenkins/home/workspace/gcp-batch-raw-ingestion-dataflow/airflow_dags/'+ params.Airflow_Dag_Upload +'.py  gs://us-central1-data-generator--fc43a156-bucket/dags'
         }
         }
       }

@@ -85,7 +85,7 @@ pipeline {
     stage('Lifecycle rules execution') {
         steps {
             script {
-               if(params.Rule_Execution == true and  params.Bucket_Name != "NONE"){
+               if(params.Rule_Execution == true &&  params.Bucket_Name != "NONE"){
                    withEnv(['GCLOUD_PATH=/usr/lib/google-cloud-sdk/bin']) {
                        dir('/bitnami/jenkins/home/workspace/gcp-batch-raw-ingestion-dataflow/lifecycle_rules/'){
                        slackSend color: 'good', message: "Executing lifecycle rules on "+ params.Bucket_Name

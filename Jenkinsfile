@@ -7,6 +7,8 @@ pipeline {
   choice(name:'Airflow_Dag_Upload',choices:['NONE','gcp-batch-raw-ingestion-dataflow','spark-scala-etl'],description:'Which Dag should be uploaded')
   choice(name:'Dataflow_Template_Build',choices:['NONE','mongodb_to_gcs','gcs_to_bq'],description:'Which template should be build')
   choice(name:'Run_Airflow_Dag',choices:['NONE','gcp-batch-raw-ingestion-dataflow'],description:'Which Dag should be triggered')
+  booleanParam(name:'Rule_Execution',defaultValue:false,description:'rule execution is needed?')
+  choice(name:'Bucket_Name',choices:['NONE','bronze-poc-group','bronze-poc-group-archive'],description:'Which bucket rules needs to execute')
 
   }
 
@@ -69,15 +71,31 @@ pipeline {
         steps {
             script {
                if(params.Run_Airflow_Dag != "NONE"){
-               withEnv(['GCLOUD_PATH=/usr/lib/google-cloud-sdk/bin']) {
-                        slackSend color: 'good', message: "Running Dag gcp-batch-raw-ingestion-dataflow with airflow"
-                        sh '$GCLOUD_PATH/gcloud composer environments  run  data-generator-demo --location us-central1  dags trigger -- gcp-batch-raw-ingestion-dataflow'
+                   withEnv(['GCLOUD_PATH=/usr/lib/google-cloud-sdk/bin']) {
+                        if(params.Run_Airflow_Dag == "gcp-batch-raw-ingestion-dataflow"){
+                            slackSend color: 'good', message: "Running Dag gcp-batch-raw-ingestion-dataflow with airflow"
+                            sh '$GCLOUD_PATH/gcloud composer environments  run  data-generator-demo --location us-central1  dags trigger -- gcp-batch-raw-ingestion-dataflow'
+                        }
                     }
                }
             }
         }
     }
 
+    stage('Lifecycle rules execution') {
+        steps {
+            script {
+               if(params.Rule_Execution == true and  params.Bucket_Name != "NONE"){
+                   withEnv(['GCLOUD_PATH=/usr/lib/google-cloud-sdk/bin']) {
+                       dir('/bitnami/jenkins/home/workspace/gcp-batch-raw-ingestion-dataflow/lifecycle_rules/'){
+                       slackSend color: 'good', message: "Executing lifecycle rules on "+ params.Bucket_Name
+                            sh '$GCLOUD_PATH/gcloud storage buckets update gs://'+params.Bucket_Name+' --lifecycle-file='+params.Bucket_Name+'.json'
+                       }
+                   }
+               }
+            }
+        }
+    }
 
   }
   post {

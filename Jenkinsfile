@@ -1,5 +1,4 @@
 def userId = slackUserIdFromEmail("${BUILD_USER_EMAIL}")
-sh 'pwd'
 pipeline {
   agent any
 

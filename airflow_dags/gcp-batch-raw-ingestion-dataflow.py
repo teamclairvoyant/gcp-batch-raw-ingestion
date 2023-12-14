@@ -27,10 +27,19 @@ with models.DAG(
     catchup=False
 ) as dag:
 
-    start_template_job = DataflowTemplatedJobStartOperator(
+    source_to_gcs = DataflowTemplatedJobStartOperator(
+        task_id="source_to_gcp",
+        retries=0,
+        template="gs://bronze-poc-group/gcp-batch-raw-ingestion/dataflow/templates/source_to_gcp",
+        location=gce_zone,
+        cancel_timeout=60,
+    )
+
+    gcs_to_bq = DataflowTemplatedJobStartOperator(
         task_id="gcs_to_bq",
         retries=0,
         template="gs://bronze-poc-group/gcp-batch-raw-ingestion/dataflow/templates/gcs_to_bq",
         location=gce_zone,
         cancel_timeout=60,
     )
+source_to_gcs >> gcs_to_bq
